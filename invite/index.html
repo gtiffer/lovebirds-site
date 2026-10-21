@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>You've been sent a love bird</title>
+  <meta name="description" content="Love notes, carried by birds. Get Love Birds to open it.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#FBF3E4">
+
+  <!-- What Messages shows as the link preview. It's the same for every invite:
+       the sender's name and code live after the # and never reach this server. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Love Birds">
+  <meta property="og:title" content="You've been sent a love bird">
+  <meta property="og:description" content="Love notes, carried by birds. Get Love Birds to open it.">
+  <meta property="og:url" content="https://gtiffer.github.io/lovebirds-site/invite">
+  <meta property="og:image" content="https://gtiffer.github.io/lovebirds-site/assets/og-invite.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="624">
+  <meta property="og:image:alt" content="A white dove carrying a sealed scroll past a window">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- After launch, Safari's app banner: <meta name="apple-itunes-app" content="app-id=APP_STORE_ID"> -->
+
+  <link rel="icon" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main>
+    <img class="wordmark" src="../assets/art/wordmark.png" alt="Love Birds" width="182" height="34">
+
+    <div class="scene" aria-hidden="true">
+      <img class="bg" src="../assets/art/bg_home_day.png" alt="">
+      <div class="flyer">
+        <img class="bird f1" src="../assets/art/dove_carry_1.png" alt="">
+        <img class="bird f2" src="../assets/art/dove_carry_2.png" alt="">
+      </div>
+    </div>
+
+    <h1 id="title">Someone sent you a love bird.</h1>
+    <p class="line" id="line">It's circling until you join.</p>
+
+    <div id="code-block" hidden>
+      <div class="tiles" id="tiles" role="img"></div>
+      <button class="chip label bold notched" id="copy" type="button">Copy code</button>
+    </div>
+
+    <div class="actions">
+      <a class="btn notched" data-get href="#">Get Love Birds</a>
+      <p class="note" id="soon" hidden>Love Birds is coming soon to the App Store.</p>
+      <p class="label" id="then">Then open it and enter the code</p>
+      <a class="label bold quiet" id="open" href="lovebirds://pair">Already have Love Birds? Open it</a>
+    </div>
+  </main>
+
+  <footer class="label">
+    <a href="../">Love Birds</a>
+    <a href="../privacy/">Privacy</a>
+  </footer>
+
+  <script src="../assets/site.js"></script>
+  <script>
+    (function () {
+      // Same alphabet as PairingCode in the app: no look-alike characters.
+      const ALPHABET = "ACDEFGHJKMNPQRTUVWXYZ2346789";
+
+      // Links look like /invite#c=42MPNQ&n=Gustavo
+      const params = new URLSearchParams(location.hash.slice(1));
+      const code = (params.get("c") || "").toUpperCase().split("").filter((ch) => ALPHABET.includes(ch)).join("").slice(0, 6);
+      const name = (params.get("n") || "").replace(/\s+/g, " ").trim().slice(0, 40);
+
+      const title = document.getElementById("title");
+      const line = document.getElementById("line");
+
+      if (code.length !== 6) {
+        title.textContent = "A love bird is on its way.";
+        line.textContent = "This invite link looks incomplete. Ask your partner to send it again.";
+        document.getElementById("then").hidden = true;
+        document.getElementById("open").href = "lovebirds://open";
+        return;
+      }
+
+      const sender = name || "Someone";
+      title.textContent = `${sender} sent you a love bird.`;
+      document.title = `${sender} sent you a love bird`;
+
+      const tiles = document.getElementById("tiles");
+      tiles.setAttribute("aria-label", `Invite code ${code.split("").join(" ")}`);
+      for (const ch of code) {
+        const tile = document.createElement("div");
+        tile.className = "tile notched";
+        tile.textContent = ch;
+        tiles.appendChild(tile);
+      }
+      document.getElementById("code-block").hidden = false;
+      document.getElementById("open").href = `lovebirds://pair/${code}`;
+
+      const copy = document.getElementById("copy");
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          copy.textContent = "Copied";
+        } catch {
+          copy.textContent = code;
+        }
+        setTimeout(() => { copy.textContent = "Copy code"; }, 2000);
+      });
+    })();
+  </script>
+</body>
+</html>

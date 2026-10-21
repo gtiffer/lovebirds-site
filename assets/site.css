@@ -1,0 +1,155 @@
+/* Love Birds website: the same paper, ink and pixel rules as the app. */
+
+/* Words use the iPhone's rounded system font, like the app; the art stays pixel. */
+
+:root {
+  color-scheme: light;
+  --paper: #FBF3E4;
+  --paper-light: #F7EEDD;
+  --paper-shade: #DCC39E;
+  --paper-deep: #B89A72;
+  --cream: #FFFAF0;
+  --ink: #2B1D1A;
+  --sepia: #5A3A30;
+  --wax: #B8323F;
+  --wax-dark: #7E1F2A;
+  --rose: #E0485A;
+  /* One art pixel = --s CSS pixels. Whole numbers only, like the app. */
+  --s: 3;
+}
+@media (min-width: 520px) { :root { --s: 4; } }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 28px 16px 24px;
+  text-align: center;
+}
+
+h1 { font-size: 27px; font-weight: 700; line-height: 1.2; margin: 22px 0 8px; text-wrap: balance; }
+p { margin: 0; }
+.line { font-size: 18px; color: var(--sepia); line-height: 1.35; text-wrap: balance; }
+
+/* Small caps labels, in a clean monospace (the app's label style). */
+.label {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--sepia);
+}
+.label.bold { font-weight: 700; color: var(--ink); }
+
+.wordmark {
+  display: block;
+  margin: 0 auto 18px;
+  width: calc(91px * 2);
+  image-rendering: pixelated;
+}
+
+/* The window, drawn from the app's sprites. */
+.scene {
+  position: relative;
+  width: calc(100px * var(--s));
+  height: calc(94px * var(--s));
+  margin: 0 auto;
+}
+.scene img { position: absolute; image-rendering: pixelated; }
+.scene .bg { left: 0; top: 0; width: 100%; height: 100%; }
+.flyer {
+  position: absolute;
+  left: calc(34px * var(--s));
+  top: calc(36px * var(--s));
+  width: calc(32px * var(--s));
+  height: calc(29px * var(--s));
+  animation: drift 7s steps(8) infinite alternate;
+}
+/* The dove carries its scroll in its claws. Two frames take turns: the second
+   sits 2px higher in the art, so switching them is the flap and the bob. */
+.flyer .bird { left: 0; top: 0; width: 100%; }
+.flyer .f1 { animation: frame-a 0.5s linear infinite; }
+.flyer .f2 { animation: frame-b 0.5s linear infinite; }
+@keyframes frame-a { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes frame-b { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
+@keyframes drift {
+  from { transform: translateX(calc(-4px * var(--s))); }
+  to { transform: translateX(calc(4px * var(--s))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flyer, .flyer .f1 { animation: none; }
+  .flyer .f2 { display: none; }
+}
+
+/* Pixel corners: one notch per corner, like the app's panels. */
+.notched {
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px),
+                     calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+}
+
+.tiles { display: flex; justify-content: center; gap: 8px; margin: 22px 0 12px; }
+.tile {
+  width: 44px; height: 58px;
+  display: grid; place-items: center;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: inset 0 -5px 0 var(--paper-shade);
+  font-size: 30px; font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.chip {
+  appearance: none;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  padding: 8px 14px 7px;
+  cursor: pointer;
+}
+.chip:active { transform: translateY(2px); }
+
+.actions { margin: 26px auto 0; max-width: 380px; display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+
+.btn {
+  display: grid; place-items: center;
+  height: 58px;
+  background: var(--wax);
+  color: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: inset 0 -6px 0 var(--wax-dark);
+  font-size: 19px; font-weight: 600;
+  text-decoration: none;
+  padding-bottom: 4px;
+}
+.btn:active { transform: translateY(3px); box-shadow: inset 0 -3px 0 var(--wax-dark); }
+
+.quiet { color: var(--ink); text-decoration: none; padding: 10px 0; }
+.quiet:hover { text-decoration: underline; }
+
+.note { font-size: 15px; color: var(--wax); }
+
+footer { text-align: center; padding: 18px 16px 34px; }
+footer a { color: var(--sepia); text-decoration: none; margin: 0 10px; }
+footer a:hover { color: var(--ink); }
+
+/* Long-form pages (privacy). */
+.prose { text-align: left; max-width: 640px; }
+.prose h1 { margin-top: 8px; }
+.prose h2 { font-size: 20px; font-weight: 700; margin: 30px 0 8px; }
+.prose p, .prose li { font-size: 17px; line-height: 1.55; color: var(--sepia); }
+.prose p + p { margin-top: 10px; }
+.prose ul { padding-left: 20px; margin: 8px 0 0; }
+.prose a { color: var(--wax); }
+.prose .wordmark { margin: 0 0 18px; }

@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["Q9697F9J5Q.com.gustavotiffer.lovebirds"],
+        "components": [
+          { "/": "/invite", "comment": "Invite links open Love Birds when it's installed" }
+        ]
+      }
+    ]
+  }
+}

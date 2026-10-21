@@ -15,9 +15,13 @@ The art is the app's own sprites (`design/tools/web_art.py` rebuilds the flying 
 
 Until a domain is bought, the site lives at **https://gtiffer.github.io/lovebirds-site/** (the app's `Links.site` points there), the same way the Froggy site is hosted.
 
-1. Create a public GitHub repo named `lovebirds-site` under `gtiffer` and put the contents of this `web` folder at its root.
-2. In the repo's Settings → Pages, deploy from the `main` branch, `/ (root)`.
-3. Check that these load:
+This folder is its own git repo: **https://github.com/gtiffer/lovebirds-site** (published Oct 20, 2026; Pages deploys from `main`, root). To update the live site, commit and push from here:
+
+```bash
+git -C web add -A && git -C web commit -m "Update site" && git -C web push
+```
+
+GitHub rebuilds in a minute or two. These should load:
    - https://gtiffer.github.io/lovebirds-site/privacy/
    - https://gtiffer.github.io/lovebirds-site/support/
 

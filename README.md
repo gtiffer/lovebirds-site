@@ -25,12 +25,13 @@ GitHub rebuilds in a minute or two. These should load:
    - https://getlovebirds.app/privacy/
    - https://getlovebirds.app/support/
 
-Every page links to its assets with relative paths. The one exception is `404.html`, which GitHub serves at any depth, so it uses root paths (`/assets/...`). GitHub Pages ignores `_headers` (it's for hosts like Cloudflare Pages).
+Every page links to its assets with relative paths. The one exception is `404.html`, which GitHub serves at any depth, so it uses root paths (`/assets/...`). GitHub Pages ignores `_headers` (it's for hosts like Cloudflare Pages), so `.well-known/apple-app-site-association` is served as `application/octet-stream`; check it with Apple's validator when turning on universal links.
 
 ## Before launch
 
 - [x] Team ID (Q9697F9J5Q) is in `.well-known/apple-app-site-association`.
-- [ ] Point the app's `Links.site` (`LoveBirds/Settings/SettingsView.swift`) and App Store Connect's privacy and support URLs at `https://getlovebirds.app` (the old address forwards until then).
+- [x] The app's `Links.site` (`LoveBirds/Settings/SettingsView.swift`) is `https://getlovebirds.app` (Nov 5; ships in the next build).
+- [ ] App Store Connect's privacy and support URLs: change them to `https://getlovebirds.app/privacy/` and `/support/` (the old address forwards until then).
 - [ ] In Xcode, add the Associated Domains capability with `applinks:getlovebirds.app`, so invite links open the app when it's installed.
 - [ ] In `Shared/Pairing.swift`, set `InviteLink.useWebLink = true` so invites share the web link.
 - [ ] Once the app is listed, put its App Store ID in `assets/site.js` (and, if you like, the Safari banner tag noted in `invite/index.html`).

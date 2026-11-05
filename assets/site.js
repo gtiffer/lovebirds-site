@@ -6,7 +6,7 @@ const LOVEBIRDS = { appStoreID: "" };
   // The same sky as the app, by the visitor's clock.
   const h = new Date().getHours();
   const sky = h >= 5 && h < 8 ? "dawn" : h >= 8 && h < 17 ? "day" : h >= 17 && h < 20 ? "dusk" : "night";
-  // Swap only the file name, so the page works at any path (GitHub Pages serves it under /lovebirds-site/).
+  // Swap only the file name, so the page works at any path (it once lived under /lovebirds-site/ on GitHub Pages).
   document.querySelectorAll(".scene .bg").forEach((img) => { img.src = img.getAttribute("src").replace(/bg_home_\w+\.png$/, `bg_home_${sky}.png`); });
 
   // "Get Love Birds": the App Store once the app is listed; until then, a note.

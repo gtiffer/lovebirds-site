@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../data/site';
+---
+<Base
+  title="Privacy · Love Birds"
+  description="How Love Birds handles your letters and your data."
+  path="/privacy/"
+  mainClass="prose"
+  footer={[{ href: '/', label: 'Love Birds' }, { href: '/support/', label: 'Help' }, { href: SITE.terms, label: 'Terms' }]}
+>
+  <a href="/"><img class="wordmark" src="/assets/art/wordmark.png" alt="Love Birds" width="182" height="34"></a>
+  <h1>Privacy</h1>
+  <p class="label">Last updated October 22, 2026</p>
+
+  <h2>The short version</h2>
+  <p>Love Birds has no ads, no trackers and no sign-up. Your letters are stored on our server, run on Google's Firebase, and only your phone and your partner's phone can read them. We don't read your letters, and we never sell or share them. Besides Firebase, the only outside service the app uses is RevenueCat, to check whether your subscription is active.</p>
+
+  <h2>Your account</h2>
+  <p>The first time you open Love Birds, your phone gets its own account on our server: a random ID, with no email, no phone number and no password. It's how the server knows which letters are yours and your partner's.</p>
+
+  <h2>What you put in the app</h2>
+  <p>Your name, the letters you write, the birds and wax seals you pick, and when each letter was sent, landed and opened. Love Birds keeps these on your phone so the app and its widgets can show them, and on our server so they can reach your partner. The server stores them in Google Cloud in the United States, encrypted at rest. Its security rules let only the two people in a couple read that couple's letters.</p>
+
+  <h2>Pairing</h2>
+  <p>When you invite your partner, Love Birds makes a six-character code that lasts up to two days and is deleted once it's used. If you share an invite link, the code and your first name ride in the part of the link after the "#", which your partner's browser reads and never sends to our website.</p>
+
+  <h2>Notifications</h2>
+  <p>To tell you when a bird lands, our server sends a notification through Firebase Cloud Messaging and Apple's notification service. For that, the server keeps your phone's notification address (a token Apple and Firebase issue). The words of a landing notification ("A robin landed on your windowsill") never include your letter. The evening reminder and the trial reminder are scheduled on your phone.</p>
+
+  <h2>Purchases</h2>
+  <p>Subscriptions are handled by Apple. We never see your payment details. To know whether your Love Birds+ subscription is active, the app uses <a href="https://www.revenuecat.com/privacy">RevenueCat</a>, a subscription service. RevenueCat receives a random ID the app makes up (not your name or email), your App Store purchase records for Love Birds (the plan, when it started, when it renews or ends) and basic device details such as your iOS version and country. It never receives your letters, your names or anything you write. The app shares only "subscribed until this date" with your partner, so one subscription covers you both.</p>
+
+  <h2>Who handles your data</h2>
+  <ul>
+    <li><a href="https://firebase.google.com/support/privacy">Google Firebase</a> stores your account, names and letters, and delivers notifications.</li>
+    <li><a href="https://www.revenuecat.com/privacy">RevenueCat</a> checks your subscription.</li>
+    <li>Apple delivers notifications and handles payments.</li>
+  </ul>
+
+  <h2>What we don't do</h2>
+  <ul>
+    <li>No advertising, and no tracking across apps or websites.</li>
+    <li>No analytics.</li>
+    <li>We don't sell or share your information with anyone.</li>
+  </ul>
+
+  <h2>This website</h2>
+  <p>This website is hosted on GitHub Pages, which handles basic technical information like IP addresses to deliver the site. The site uses no cookies and no analytics.</p>
+
+  <h2>Deleting your data</h2>
+  <p>Unpairing (Settings, then Your love bird) ends sharing with your partner; no new letters can fly between you. To delete everything, open Settings, then Account, then Delete my account: your account, your name and the letters you've written are removed from our server right away. Your partner keeps the copies already on their phone, like real mail. Deleting the app removes its data from your phone. You can also email us to delete your data.</p>
+
+  <h2>Children</h2>
+  <p>Love Birds isn't meant for children under 13.</p>
+
+  <h2>Changes and contact</h2>
+  <p>If this policy changes, we'll update this page and the date above. Questions: <a href="mailto:gustifferbuilds@gmail.com">gustifferbuilds@gmail.com</a>.</p>
+</Base>

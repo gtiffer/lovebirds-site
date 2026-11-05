@@ -1,0 +1,14 @@
+# Love Birds
+
+> Love Birds is an iPhone app for couples. Each partner picks a pixel-art bird, writes or draws a short love note, seals it with wax and lets it fly. About a minute later the bird lands on the partner's windowsill: in the app, on their Home Screen widget and on their Lock Screen.
+
+- One Love Birds+ subscription covers both partners: a 7-day free trial, then yearly.
+- Built for couples who want to stay close through busy days and long distance.
+- Made by Gus Tiffer. Contact: gustifferbuilds@gmail.com
+
+## Pages
+
+- [Home](https://getlovebirds.app/): what Love Birds is
+- [Help](https://getlovebirds.app/support/): pairing, the subscription, new phones, missing birds
+- [Privacy](https://getlovebirds.app/privacy/): how letters and data are handled
+- [Blog](https://getlovebirds.app/blog/): ideas for writing to your partner and staying connected

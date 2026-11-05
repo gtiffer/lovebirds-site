@@ -1,0 +1,6 @@
+# Everyone is welcome, including AI search crawlers (GPTBot, ClaudeBot,
+# PerplexityBot, Google-Extended): being readable is how answers cite us.
+User-agent: *
+Allow: /
+
+Sitemap: https://getlovebirds.app/sitemap-index.xml

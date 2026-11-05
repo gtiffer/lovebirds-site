@@ -1,0 +1,82 @@
+---
+// Every page's <head>, footer and shared script. Pages pass their own words.
+import { getCollection } from 'astro:content';
+import { SITE, absolute } from '../data/site';
+
+interface Link { href: string; label: string }
+interface Props {
+  title: string;
+  description: string;
+  path: string; // e.g. "/privacy/"; becomes the canonical address
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  mainClass?: string;
+  jsonLd?: object | object[];
+  footer?: Link[];
+}
+
+const {
+  title, description, path,
+  ogTitle = title, ogDescription = description,
+  ogImage = SITE.ogImage, ogImageAlt = SITE.ogImageAlt,
+  ogType = 'website', noindex = false, mainClass, jsonLd,
+} = Astro.props;
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const blogLink = posts.length > 0 ? [{ href: '/blog/', label: 'Blog' }] : [];
+const footer = Astro.props.footer ?? [
+  ...blogLink,
+  { href: '/support/', label: 'Help' },
+  { href: '/privacy/', label: 'Privacy' },
+  { href: SITE.terms, label: 'Terms' },
+];
+
+const canonical = absolute(path);
+const image = absolute(ogImage);
+const schema = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const settings = { appStoreID: SITE.appLive ? SITE.appStoreID : '', provider: SITE.campaignProvider };
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
+  <meta name="theme-color" content="#FBF3E4">
+  <meta property="og:type" content={ogType}>
+  <meta property="og:site_name" content={SITE.name}>
+  <meta property="og:title" content={ogTitle}>
+  <meta property="og:description" content={ogDescription}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:image" content={image}>
+  {ogImage === SITE.ogImage && <meta property="og:image:width" content="1200">}
+  {ogImage === SITE.ogImage && <meta property="og:image:height" content="624">}
+  <meta property="og:image:alt" content={ogImageAlt}>
+  <meta name="twitter:card" content="summary_large_image">
+  {SITE.appLive && <meta name="apple-itunes-app" content={`app-id=${SITE.appStoreID}`}>}
+  <link rel="icon" href="/assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/site.css">
+  {schema.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  <slot name="head" />
+</head>
+<body>
+  <main class={mainClass}>
+    <slot />
+  </main>
+
+  <footer class="label">
+    {footer.map((link) => <a href={link.href}>{link.label}</a>)}
+  </footer>
+
+  <script is:inline define:vars={{ settings }}>window.LOVEBIRDS = settings;</script>
+  <script is:inline src="/assets/site.js"></script>
+  <slot name="end" />
+</body>
+</html>

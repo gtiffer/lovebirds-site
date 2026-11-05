@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Scene from '../components/Scene.astro';
+import { SITE, absolute, appStoreURL } from '../data/site';
+
+const description = 'Love notes, carried by birds. Pick a bird, write a little letter, seal it with wax, and let it fly to your person.';
+
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: absolute('/') },
+  {
+    '@context': 'https://schema.org', '@type': 'Organization', name: SITE.name, url: absolute('/'),
+    logo: absolute('/assets/apple-touch-icon.png'), email: SITE.email,
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'MobileApplication', name: SITE.name,
+    operatingSystem: 'iOS', applicationCategory: 'LifestyleApplication', description,
+    image: absolute(SITE.ogImage),
+    ...(SITE.appLive ? { url: appStoreURL, installUrl: appStoreURL } : {}),
+  },
+];
+---
+<Base
+  title="Love Birds: Couples Notes"
+  description={description}
+  path="/"
+  ogTitle="Love Birds: Couples Notes"
+  ogDescription="Love notes, carried by birds."
+  jsonLd={jsonLd}
+>
+  <img class="wordmark" src="/assets/art/wordmark.png" alt="Love Birds" width="182" height="34">
+
+  <Scene />
+
+  <h1>Send Love Notes to your Love Bird</h1>
+  <p class="line">Stay connected through busy days, long&nbsp;distance and everything in between.</p>
+
+  <div class="actions">
+    <a class="btn notched" data-get href="#">Get Love Birds</a>
+    <p class="note" id="soon" hidden>Love Birds is coming soon to the App Store.</p>
+  </div>
+</Base>
